@@ -74,4 +74,15 @@
             $task = $this->model->getTaskById($id);
             $this->view->render('Edit Task', $task);
         }
+
+        public function checkAction(){
+            $id = $this->route['id'];
+            $task = $this->model->getTaskById($id);
+            if($task['status'] == '1'){
+                $this->model->setStatus(0, $id);
+            }else if($task['status']== '0'){
+                $this->model->setStatus(1, $id);
+            }
+            $this->view->redirect('/');
+        }
     }

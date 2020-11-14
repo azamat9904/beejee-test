@@ -15,7 +15,7 @@
                 'email' => $email,
                 'task' => $task
             ];
-            $this->db->query("INSERT INTO task (name, email, task, status) VALUES(:name, :email, :task, 'Новый')" , $params);
+            $this->db->query("INSERT INTO task (name, email, task) VALUES(:name, :email, :task)" , $params);
             return $this->db->execute();
         }
 
@@ -80,9 +80,19 @@
                 'name' => $name,
                 'email' => $email,
                 'task' => $task,
+                'id' => $id,
+                'edited' => 1
+            ];
+            $this->db->query("UPDATE task SET name=:name,email=:email,task=:task,edited=:edited WHERE id=:id" , $params);
+            return $this->db->execute();
+        }
+
+        public function setStatus($status, $id){
+            $params = [
+                'status' => $status,
                 'id' => $id
             ];
-            $this->db->query("UPDATE task SET name=:name,email=:email,task=:task WHERE id=:id" , $params);
+            $this->db->query("UPDATE task SET status=:status WHERE id=:id" , $params);
             return $this->db->execute();
         }
     }

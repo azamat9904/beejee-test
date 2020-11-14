@@ -48,30 +48,52 @@
                 </div>
                 </div>
               </div>
-              <?php foreach($tasks as $task):?>
-                  <div class="card mt-3">
-                    <div class="card-header">
-                      TASK ID: <?= $task->id ?>
+              <?php if(!empty($tasks)) : ?>
+                  <?php foreach($tasks as $task):?>
+                    <div class="card mt-3">
+                      <div class="card-header">
+                        TASK ID: <?= $task->id ?>
+                      </div>
+                      <div class="card-body">
+                        <h5 class="card-title">Task Name: <?= $task->name ?></h5>
+                        <p class="card-text">
+                            Email: <?= $task->email ?><br />
+                            Status: <?= $task->status == '0' ? "Не выполнено" : "Выполнено"?> <?= $task->edited == '1' ? ', Отредактирован админом': '' ?><br />
+                            Task: <?= $task->task ?>
+                        </p>
+                        <?php if(isUserLoggedIn()):?>
+                              <?php if($task->status == '0'): ?>
+                                  <a 
+                                href="<?= URLROOT ?>/task/check/<?=$task->id ?>" 
+                                class="btn btn-success"
+                                >
+                                  Отметить как выполнено
+                                </a>
+                              <?php else: ?>
+                                  <a 
+                                  href="<?= URLROOT ?>/task/check/<?=$task->id ?>" 
+                                  class="btn btn-danger"
+                                  >
+                                   отметить как не выполнено
+                                  </a>
+                              <?php endif ?>
+                              <a 
+                            href="<?= URLROOT ?>/task/edit/<?=$task->id ?>" 
+                            class="btn btn-primary"
+                            >
+                              Редактировать
+                            </a>
+                        <?php endif; ?>
+                      </div>
                     </div>
-                    <div class="card-body">
-                      <h5 class="card-title">Task Name: <?= $task->name ?></h5>
-                      <p class="card-text">
-                          Email: <?= $task->email ?><br />
-                          Status: <?= $task->status ?><br />
-                          Task: <?= $task->task ?>
-                      </p>
-                      <?php if(isUserLoggedIn()):?>
-                            <a 
-                          href="<?= URLROOT ?>/task/edit/<?=$task->id ?>" 
-                          class="btn btn-primary"
-                          >
-                            Редактировать
-                          </a>
-                      <?php endif; ?>
-                    </div>
-                  </div>
-              <?php endforeach; ?>
-
+                <?php endforeach; ?>
+                <?php else: ?>
+                      <div class="row">
+                          <div class="col text-center">
+                              No tasks created. Please, try to add new one
+                          </div>
+                      </div>
+                <?php endif ?>
               <div class="row">
                   <div class="col">
                     <?php echo $pagination; ?>
