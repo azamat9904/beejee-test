@@ -10,30 +10,35 @@
         </div>
     </div>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Name</th>
-      <th scope="col">Email</th>
-      <th scope="col">Status</th>
-      <th scope="col">Task</th>
-    </tr>
-  </thead>
-  <tbody>
-    <?php
-        foreach($tasks as $task): 
-    ?>
-        <tr>
-            <th scope="row"><?= $task->id ?></th>
-            <td><?= $task->name ?></td>
-            <td><?= $task->email ?></td>
-            <td><?= $task->status ?></td>
-            <td><?= $task->task ?></td>
-        </tr>
-    <?php
-        endforeach;
-    ?>
-  </tbody>
-</table>
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Status</th>
+        <th scope="col">Task</th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php
+          foreach($tasks as $task): 
+      ?>
+          <tr>
+              <th scope="row"><?= $task->id ?></th>
+              <td><?= $task->name ?></td>
+              <td><?= $task->email ?></td>
+              <td><?= $task->status ?></td>
+              <td><?= $task->task ?></td>
+          </tr>
+      <?php
+          endforeach;
+      ?>
+    </tbody>
+  </table>
+  <div class="row">
+      <div class="col">
+         <?php echo $pagination; ?>
+      </div>
+  </div>
 </div>

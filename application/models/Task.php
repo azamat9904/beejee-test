@@ -52,4 +52,17 @@
             
             return ['isValid' => false, 'data' => $data];
         }
+
+        public function tasksCount() {
+            return $this->db->column('SELECT COUNT(id) FROM task');
+        }
+        
+        public function tasksList($route) {
+            $max = 3;
+            $params = [
+                'max' => $max,
+                'start' => ((($route['page'] ?? 1) - 1) * $max),
+            ];
+            return $this->db->row('SELECT * FROM task ORDER BY id ASC LIMIT :start, :max', $params);
+        }
     }

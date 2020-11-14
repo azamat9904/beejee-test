@@ -1,13 +1,15 @@
 <?php
     namespace application\controllers;
     use application\core\Controller;
+    use application\libs\Pagination;
 
     class TaskController extends Controller{
 
         public function indexAction(){
-            $tasks = $this->model->getTasks();
+            $pagination = new Pagination($this->route, $this->model->tasksCount());
             $data = [
-                'tasks' => $tasks
+                'pagination' => $pagination->get(),
+                'tasks' => $this->model->tasksList($this->route),
             ];
             $this->view->render('Task', $data);
         }
