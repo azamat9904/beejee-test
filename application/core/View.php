@@ -12,11 +12,10 @@
         }
 
         public function render($title, $vars = []){
-            extract($vars);
 
             $path = APPROOT . "/application/views/" . $this->path . '.php';
             if(file_exists($path)){
-                self::requireFile($path, $title);
+                self::requireFile($path, $title, $vars);
                 return;
             }
 
@@ -24,6 +23,7 @@
         }
 
         public static function requireFile($path, $title, $vars=[]){
+            extract($vars);
             ob_start();
             require_once $path;
             $content = ob_get_clean();
