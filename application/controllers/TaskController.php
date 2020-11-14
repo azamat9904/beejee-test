@@ -34,6 +34,10 @@
         }
         
         public function editAction(){
+            if(!isUserLoggedIn()){
+                $this->view->redirect("/");
+                return;
+            }
             $id = $this->route['id'];
             $this->postRequestHandler('edit', 'task_updated', 'Task was successfully updated', 'Create Task', $id);
             $task = $this->model->getTaskById($id);
@@ -41,6 +45,10 @@
         }
 
         public function checkAction(){
+            if(!isUserLoggedIn()){
+                $this->view->redirect("/");
+                return;
+            }
             $id = $this->route['id'];
             $task = $this->model->getTaskById($id);
             if($task['status'] == '1'){
@@ -73,4 +81,5 @@
                 return;
             }
         }
+
     }
