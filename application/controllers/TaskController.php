@@ -19,24 +19,7 @@
         }
 
         public function createTaskAction(){
-
-            if($_SERVER['REQUEST_METHOD'] === "POST"){
-                $data = $_POST;
-                $result = $this->model->validateTask($data['name'], $data['email'], $data['task']);
-
-                if($result['isValid']){
-                    $name = $result['data']['name'];
-                    $email =  $result['data']['email'];
-                    $task =  $result['data']['task'];
-                    $this->model->createTask($name, $email, $task);
-                    createFeedback('task_created', "Task was successfully created");
-                    $this->view->redirect("/");
-                    return;
-                }
-                    
-                $this->view->render('Create Task', $result['data']);
-                return;
-            }
+            $this->postRequestHandler('create', 'task_created', 'Task was successfully created', 'Create Task');
             $this->view->render('Create Task');
         }
 
@@ -51,26 +34,8 @@
         }
         
         public function editAction(){
-
-            if($_SERVER['REQUEST_METHOD'] === "POST"){
-                $data = $_POST;
-                $result = $this->model->validateTask($data['name'], $data['email'], $data['task']);
-                if($result['isValid']){
-                    $name = $result['data']['name'];
-                    $email =  $result['data']['email'];
-                    $task =  $result['data']['task'];
-                    $id = $this->route['id'];
-                    $this->model->updateTask($id, $name, $email, $task);
-                    createFeedback('task_updated', "Task was successfully updated");
-                    $this->view->redirect("/");
-                    return;
-                }
-                $result['id'] = $this->route['id']; 
-                $this->view->render('Create Task', $result['data']);
-                return;
-            }
-
             $id = $this->route['id'];
+            $this->postRequestHandler('edit', 'task_updated', 'Task was successfully updated', 'Create Task', $id);
             $task = $this->model->getTaskById($id);
             $this->view->render('Edit Task', $task);
         }
@@ -84,5 +49,28 @@
                 $this->model->setStatus(1, $id);
             }
             $this->view->redirect('/');
+        }
+
+        public function postRequestHandler($action, $feedbackTitle, $feedbackMessage,$pageTitle,  $id=null){
+            if($_SERVER['REQUEST_METHOD'] === "POST"){
+                $data = $_POST;
+                $result = $this->model->validateTask($data['name'], $data['email'], $data['task']);
+                if($result['isValid']){
+                    $name = $result['data']['name'];
+                    $email =  $result['data']['email'];
+                    $task =  $result['data']['task'];
+                    if($action == 'create'){
+                        $this->model->createTask($name, $email, $task);
+                    }else if($action == 'edit'){
+                        $this->model->updateTask($id, $name, $email, $task);
+                    }
+                    createFeedback($feedbackTitle, $feedbackMessage);
+                    $this->view->redirect("/");
+                    return;
+                }
+                $result['id'] = $id?? ''; 
+                $this->view->render($pageTitle, $result['data']);
+                return;
+            }
         }
     }
