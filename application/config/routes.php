@@ -16,6 +16,10 @@
             'controller' => 'task',
             'action' => 'createTask'
         ],
+        "task/edit/{id:\d+}" => [
+            'controller' => 'task',
+            'action' => 'edit'
+        ],
         'user/login' => [
             'controller' => 'user',
             'action' => 'login'

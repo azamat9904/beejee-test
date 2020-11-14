@@ -49,4 +49,29 @@
                 $this->view->redirect('/');
             }
         }
+
+        public function editAction(){
+
+            if($_SERVER['REQUEST_METHOD'] === "POST"){
+                $data = $_POST;
+                $result = $this->model->validateTask($data['name'], $data['email'], $data['task']);
+                if($result['isValid']){
+                    $name = $result['data']['name'];
+                    $email =  $result['data']['email'];
+                    $task =  $result['data']['task'];
+                    $id = $this->route['id'];
+                    $this->model->updateTask($id, $name, $email, $task);
+                    createFeedback('task_updated', "Task was successfully updated");
+                    $this->view->redirect("/");
+                    return;
+                }
+                $result['id'] = $this->route['id']; 
+                $this->view->render('Create Task', $result['data']);
+                return;
+            }
+
+            $id = $this->route['id'];
+            $task = $this->model->getTaskById($id);
+            $this->view->render('Edit Task', $task);
+        }
     }

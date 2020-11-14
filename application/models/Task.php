@@ -66,4 +66,23 @@
 
             return $this->db->row("SELECT * FROM task ORDER BY $sortColumnName ". $order ."  LIMIT :start, :max", $params);
         }
+
+        public function getTaskById($id){
+            $params = [
+                'id' => $id
+            ];
+            $this->db->query("SELECT * FROM task WHERE id=:id", $params);
+            return $this->db->single();
+        }
+
+        public function updateTask($id, $name, $email, $task){
+            $params = [
+                'name' => $name,
+                'email' => $email,
+                'task' => $task,
+                'id' => $id
+            ];
+            $this->db->query("UPDATE task SET name=:name,email=:email,task=:task WHERE id=:id" , $params);
+            return $this->db->execute();
+        }
     }

@@ -1,6 +1,6 @@
 <div class="container mt-4">
     <?php showFeedback("task_created"); ?>
-    
+    <?php showFeedback("task_updated"); ?>
       <div class="row">
 
         <div class="col-lg-3 order-lg-2 mb-5">
@@ -60,6 +60,14 @@
                           Status: <?= $task->status ?><br />
                           Task: <?= $task->task ?>
                       </p>
+                      <?php if(isUserLoggedIn()):?>
+                            <a 
+                          href="<?= URLROOT ?>/task/edit/<?=$task->id ?>" 
+                          class="btn btn-primary"
+                          >
+                            Редактировать
+                          </a>
+                      <?php endif; ?>
                     </div>
                   </div>
               <?php endforeach; ?>
