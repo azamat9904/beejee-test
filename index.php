@@ -1,5 +1,9 @@
 <?php
     require_once "application/config/config.php";
+    require_once "application/config/routes.php";
+    require_once "application/libs/Dev.php";
+
+    use application\core\Router;
 
     function autoload_files($classNames){
         $path = str_replace('\\', '/', __DIR__ . '/' . $classNames . '.php');
@@ -11,4 +15,5 @@
     spl_autoload_register('autoload_files');
     session_start();
 
-    ?>
+    $router = new Router();
+    $router->run();
