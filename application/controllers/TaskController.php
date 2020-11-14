@@ -49,7 +49,7 @@
                 $this->view->redirect('/');
             }
         }
-
+        
         public function editAction(){
 
             if($_SERVER['REQUEST_METHOD'] === "POST"){
