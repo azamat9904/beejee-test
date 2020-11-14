@@ -4,11 +4,6 @@
 
     class Task extends Model{
 
-        public function getTasks(){
-            $this->db->query("SELECT * FROM task");
-            return $this->db->resultSet();
-        }
-
         public function createTask($name, $email, $task){
             $params = [
                 'name' => $name,

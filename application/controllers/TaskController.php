@@ -34,7 +34,7 @@
         
         public function editAction(){
             if(!isUserLoggedIn()){
-                $this->view->redirect("/");
+                $this->view->redirect("/user/login");
                 return;
             }
             $id = $this->route['id'];
@@ -45,7 +45,7 @@
 
         public function checkAction(){
             if(!isUserLoggedIn()){
-                $this->view->redirect("/");
+                $this->view->redirect("/user/login");
                 return;
             }
             $id = $this->route['id'];

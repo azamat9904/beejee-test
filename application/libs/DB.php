@@ -42,11 +42,6 @@ class Db {
         return $this->stmt->execute();
     }
   
-    public function resultSet(){
-        $this->stmt->execute();
-        return $this->stmt->fetchAll(PDO::FETCH_OBJ);
-    }
-  
     public function single(){
         $this->stmt->execute();
         return $this->stmt->fetch(PDO::FETCH_ASSOC);
@@ -54,7 +49,8 @@ class Db {
 
 	public function row($sql, $params = []) {
 		$this->query($sql, $params);
-		return $this->resultSet();
+		$this->stmt->execute();
+        return $this->stmt->fetchAll(PDO::FETCH_OBJ);
 	}
 
 	public function column($sql, $params = []) {
