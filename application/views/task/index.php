@@ -47,7 +47,7 @@
             TASK ID: <?= $task->id ?>
           </div>
           <div class="card-body">
-            <h5 class="card-title">Name: <?= $task->name ?></h5>
+            <h5 class="card-title">Task Name: <?= $task->name ?></h5>
             <p class="card-text">
                 Email: <?= $task->email ?><br />
                 Status: <?= $task->status ?><br />

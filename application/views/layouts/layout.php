@@ -23,15 +23,15 @@
                     </li>
                 </ul>
                 <ul class="navbar-nav">
-                   <?php if(isUserLoggedIn()){ ?>
+                   <?php if(isUserLoggedIn()): ?>
                         <li class="nav-item">
                             <a class="nav-link" href="<?= URLROOT; ?>/user/logout" tabindex="-1" aria-disabled="true">Logout</a>
                         </li>
-                   <?php }else{ ?>
+                   <?php else: ?>
                         <li class="nav-item">
                             <a class="nav-link" href="<?= URLROOT; ?>/user/login" tabindex="-1" aria-disabled="true">Login</a>
                         </li>
-                   <? }?>
+                   <? endif ?>
                 </ul>
             </div>
         </div>
