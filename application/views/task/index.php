@@ -50,7 +50,7 @@
               </div>
               <?php if(!empty($tasks)) : ?>
                   <?php foreach($tasks as $task):?>
-                    <div class="card mt-3">
+                    <div class="card my-3">
                       <div class="card-header">
                         TASK ID: <?= $task->id ?>
                       </div>

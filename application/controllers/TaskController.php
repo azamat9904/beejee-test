@@ -7,12 +7,11 @@
 
         public function indexAction(){
             $pagination = new Pagination($this->route, $this->model->tasksCount());
-
             $sortingColumn = $_SESSION['sort_column'] ?? 'id';
             $sortingOrder = $_SESSION['sort_order'] ?? 'ASC';
-
+            $paginationTemplate = (int)$pagination->amount == 1 ? '' : $pagination->get();
             $data = [
-                'pagination' => $pagination->get(),
+                'pagination' => $paginationTemplate,
                 'tasks' => $this->model->tasksList($this->route, $sortingColumn, $sortingOrder),
             ];
             $this->view->render('Task', $data);
