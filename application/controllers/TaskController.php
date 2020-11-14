@@ -7,9 +7,13 @@
 
         public function indexAction(){
             $pagination = new Pagination($this->route, $this->model->tasksCount());
+
+            $sortingColumn = $_SESSION['sort_column'] ?? 'id';
+            $sortingOrder = $_SESSION['sort_order'] ?? 'ASC';
+
             $data = [
                 'pagination' => $pagination->get(),
-                'tasks' => $this->model->tasksList($this->route),
+                'tasks' => $this->model->tasksList($this->route, $sortingColumn, $sortingOrder),
             ];
             $this->view->render('Task', $data);
         }
@@ -36,4 +40,13 @@
             $this->view->render('Create Task');
         }
 
+        public function sortAction(){
+            if($_SERVER['REQUEST_METHOD'] === "POST"){
+                $columnName = checkInput($_POST['columnName']);
+                $columnOrder = strtoupper(checkInput($_POST['columnOrder']));
+                $_SESSION['sort_column'] = $columnName;
+                $_SESSION['sort_order'] = $columnOrder;
+                $this->view->redirect('/');
+            }
+        }
     }

@@ -57,12 +57,13 @@
             return $this->db->column('SELECT COUNT(id) FROM task');
         }
         
-        public function tasksList($route) {
+        public function tasksList($route, $sortColumnName, $order) {
             $max = 3;
             $params = [
                 'max' => $max,
                 'start' => ((($route['page'] ?? 1) - 1) * $max),
             ];
-            return $this->db->row('SELECT * FROM task ORDER BY id ASC LIMIT :start, :max', $params);
+
+            return $this->db->row("SELECT * FROM task ORDER BY $sortColumnName ". $order ."  LIMIT :start, :max", $params);
         }
     }

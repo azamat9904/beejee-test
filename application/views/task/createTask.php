@@ -3,7 +3,7 @@
   <div class="card card-body bg-light mt-3">
     <h2>Add Task</h2>
     <p>Create a task with this form</p>
-    <form action="<?php echo URLROOT; ?>/task/createTask" method="post">
+    <form action="<?php echo URLROOT; ?>/task/createTask" method="POST">
 
       <div class="form-group">
         <label for="name">Name: <sup>*</sup></label>

@@ -16,13 +16,23 @@ class Db {
 
 	public function query($sql, $params = []) {
 		$this->stmt = $this->db->prepare($sql);
+
 		if (!empty($params)) {
 			foreach ($params as $key => $val) {	
-				if (is_int($val)) {
-					$type = PDO::PARAM_INT;
-				} else {
-					$type = PDO::PARAM_STR;
-				}		
+				$type = null;
+				switch(true){
+					case is_int($val):
+					  $type = PDO::PARAM_INT;
+					  break;
+					case is_bool($val):
+					  $type = PDO::PARAM_BOOL;
+					  break;
+					case is_null($val):
+					  $type = PDO::PARAM_NULL;
+					  break;
+					default:
+					  $type = PDO::PARAM_STR;
+				  }	
 				$this->stmt->bindValue(':'.$key, $val, $type);
 			}
 		}
