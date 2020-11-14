@@ -9,3 +9,8 @@
         'password' => '',
         'host' => 'localhost'
     ]);
+
+    define('USER', [
+        'email' => 'admin',
+        'password' => '123'
+    ]);

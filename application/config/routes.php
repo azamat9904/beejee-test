@@ -20,4 +20,8 @@
             'controller' => 'user',
             'action' => 'login'
         ],
+        'user/logout' => [
+            'controller' => 'user',
+            'action' => 'logout'
+        ],
     ]);

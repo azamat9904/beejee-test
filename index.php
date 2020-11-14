@@ -4,7 +4,7 @@
     require_once "application/libs/Dev.php";
     require_once "application/libs/checkInput.php";
     require_once "application/libs/feedback.php";
-    
+    require_once "application/libs/checkAuth.php";
     use application\core\Router;
 
     function autoload_files($classNames){

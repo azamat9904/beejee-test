@@ -16,7 +16,7 @@
         public function loadModel($name) {
             $path = 'application\models\\'.ucfirst($name);
             if (class_exists($path)) {
-                return new $path;
+                return new $path();
             }
         }
 
